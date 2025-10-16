@@ -1,0 +1,27 @@
+# Core data science packages (pre-compiled wheels available)
+pandas>=1.5.0
+numpy>=1.21.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Interactive visualization
+plotly>=5.0.0
+
+# Basic statistical analysis (avoiding compilation-heavy packages)
+scipy>=1.8.0
+
+# Machine learning (usually has pre-compiled wheels)
+scikit-learn>=1.1.0
+
+# Jupyter and interactive development
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Additional useful packages
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+openpyxl>=3.0.0
+
+# Note: statsmodels requires Visual C++ build tools on Windows
+# Install separately if needed: conda install statsmodels
+# or install Visual C++ Build Tools from Microsoft

@@ -1,0 +1,164 @@
+---
+title: "Sid's Data Science Portfolio"
+subtitle: "Exploring Data Through Analytics and Visualization"
+author: "Sid Jena"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    embed-resources: true
+    fig-width: 8
+    fig-height: 6
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Welcome to My Data Science Portfolio
+
+Welcome to my portfolio showcasing data science projects, statistical analyses, and data visualizations. This site demonstrates my skills in Python, data manipulation, statistical modeling, and creating compelling visualizations.
+
+## About Me
+
+I'm passionate about turning data into insights and creating meaningful visualizations that tell stories. This portfolio contains various projects spanning different domains of data science and analytics.
+
+## Featured Analysis: Stock Market Trends
+
+Let me demonstrate with a sample analysis of simulated stock market data:
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from datetime import datetime, timedelta
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data
+dates = pd.date_range(start='2023-01-01', end='2023-12-31', freq='D')
+n_days = len(dates)
+
+# Simulate stock prices with trend and volatility
+base_price = 100
+trend = np.linspace(0, 20, n_days)  # Upward trend
+volatility = np.random.normal(0, 2, n_days)  # Random fluctuations
+prices = base_price + trend + volatility
+
+# Create DataFrame
+stock_data = pd.DataFrame({
+    'Date': dates,
+    'Price': prices,
+    'Volume': np.random.randint(1000000, 5000000, n_days)
+})
+
+# Calculate moving averages
+stock_data['MA_20'] = stock_data['Price'].rolling(window=20).mean()
+stock_data['MA_50'] = stock_data['Price'].rolling(window=50).mean()
+
+print(f"Data shape: {stock_data.shape}")
+print(f"Price range: ${stock_data['Price'].min():.2f} - ${stock_data['Price'].max():.2f}")
+```
+
+```{python}
+# Create the main visualization
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
+
+# Plot 1: Stock Price with Moving Averages
+ax1.plot(stock_data['Date'], stock_data['Price'], 
+         linewidth=1.5, alpha=0.8, label='Stock Price', color='#2E86AB')
+ax1.plot(stock_data['Date'], stock_data['MA_20'], 
+         linewidth=2, label='20-day Moving Average', color='#A23B72')
+ax1.plot(stock_data['Date'], stock_data['MA_50'], 
+         linewidth=2, label='50-day Moving Average', color='#F18F01')
+
+ax1.set_title('Stock Price Analysis with Moving Averages', fontsize=16, fontweight='bold')
+ax1.set_ylabel('Price ($)', fontsize=12)
+ax1.legend(loc='upper left')
+ax1.grid(True, alpha=0.3)
+ax1.set_xlim(stock_data['Date'].min(), stock_data['Date'].max())
+
+# Plot 2: Trading Volume
+colors = ['#E74C3C' if x < stock_data['Volume'].mean() else '#27AE60' 
+          for x in stock_data['Volume']]
+ax2.bar(stock_data['Date'], stock_data['Volume'], 
+        color=colors, alpha=0.7, width=1)
+
+ax2.set_title('Trading Volume Over Time', fontsize=16, fontweight='bold')
+ax2.set_xlabel('Date', fontsize=12)
+ax2.set_ylabel('Volume', fontsize=12)
+ax2.grid(True, alpha=0.3)
+ax2.set_xlim(stock_data['Date'].min(), stock_data['Date'].max())
+
+# Format x-axis dates
+import matplotlib.dates as mdates
+for ax in [ax1, ax2]:
+    ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+    ax.tick_params(axis='x', rotation=45)
+
+plt.tight_layout()
+plt.show()
+```
+
+## Key Insights
+
+```{python}
+# Calculate some basic statistics
+price_stats = {
+    'Starting Price': f"${stock_data['Price'].iloc[0]:.2f}",
+    'Ending Price': f"${stock_data['Price'].iloc[-1]:.2f}",
+    'Total Return': f"{(stock_data['Price'].iloc[-1] / stock_data['Price'].iloc[0] - 1) * 100:.1f}%",
+    'Average Daily Volume': f"{stock_data['Volume'].mean():,.0f}",
+    'Price Volatility (Std Dev)': f"${stock_data['Price'].std():.2f}"
+}
+
+print("📊 Stock Performance Summary:")
+print("=" * 40)
+for key, value in price_stats.items():
+    print(f"{key:<25}: {value}")
+```
+
+## Portfolio Projects
+
+### 📈 Financial Analysis
+- Stock market trend analysis
+- Portfolio optimization models
+- Risk assessment frameworks
+
+### 🏥 Healthcare Analytics
+- Patient outcome predictions
+- Medical data visualization
+- Clinical trial analysis
+
+### 🛒 Business Intelligence
+- Customer segmentation
+- Sales forecasting
+- Market research insights
+
+### 🌍 Social Impact
+- Climate data analysis
+- Economic inequality studies
+- Public policy evaluation
+
+## Technical Skills
+
+- **Programming**: Python, R, SQL
+- **Data Analysis**: Pandas, NumPy, SciPy
+- **Visualization**: Matplotlib, Seaborn, Plotly
+- **Machine Learning**: Scikit-learn, TensorFlow
+- **Statistical Modeling**: Regression, Time Series, Bayesian Methods
+- **Tools**: Jupyter, Git, Docker, AWS
+
+## Get in Touch
+
+I'm always interested in discussing data science projects, collaboration opportunities, or new challenges. Feel free to reach out through the contact information provided in my profile.
+
+---
+
+*This portfolio is built with [Quarto](https://quarto.org/) - a powerful tool for creating dynamic documents and websites.*
